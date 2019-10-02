@@ -9,6 +9,10 @@ namespace Linker.Models
 {
     public class User
     {
+        public User()
+        {
+            Guid = System.Guid.NewGuid();
+        }
         [Key]
         public long Id { get; set; }
         [Required]

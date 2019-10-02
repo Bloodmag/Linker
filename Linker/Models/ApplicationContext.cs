@@ -10,19 +10,20 @@ namespace Linker.Models
     public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Link> Links { get; set; }
-        public ApplicationContext()
+        //public DbSet<Link> Links { get; set; }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+            :base(options)
         {
-            Database.EnsureCreated();
+            
         }
-
+        /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "LinkerDB.db" };
             var connectionString = connectionStringBuilder.ToString();
             var connection = new SqliteConnection(connectionString);
-
             optionsBuilder.UseSqlite(connection);
         }
+        */
     }
 }
