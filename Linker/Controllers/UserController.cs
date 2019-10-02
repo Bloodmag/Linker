@@ -23,9 +23,10 @@ namespace Linker.Controllers
             db.SaveChanges();
             return user.Guid;
         }
-        public bool SignIn()
+        [HttpGet]
+        public bool SignIn(Guid guid)
         {
-
+            return db.Users.Where(u => u.Guid == guid).Count() > 0;
         }
 
     }

@@ -16,6 +16,10 @@ namespace Linker
         
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=productsdb;Trusted_Connection=True;";
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddMvc(); 
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
