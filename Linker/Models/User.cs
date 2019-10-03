@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Linker.Models
 {
+    [Table("Users")]
     public class User
     {
         public User()

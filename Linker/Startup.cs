@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Data.Sqlite;
+using Linker.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Linker
 {
@@ -16,8 +19,12 @@ namespace Linker
         
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=productsdb;Trusted_Connection=True;";
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+           
+        
+            var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "LinkerDB.db" };
+            var connectionString = connectionStringBuilder.ToString();
+            var connection = new SqliteConnection(connectionString);
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlite(connection));
 
             services.AddMvc(); 
         }
@@ -37,6 +44,7 @@ namespace Linker
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseMvc();
         }
     }
 }

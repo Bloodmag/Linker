@@ -7,14 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { CookieService } from 'ngx-cookie-service';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         NgModule({
-            imports: [BrowserModule, FormsModule],
+            imports: [BrowserModule, FormsModule, HttpClientModule],
             declarations: [AppComponent],
+            providers: [CookieService],
             bootstrap: [AppComponent]
         })
     ], AppModule);
