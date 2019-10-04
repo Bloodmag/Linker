@@ -9,32 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 //import { Product } from './product';
 var DataService = /** @class */ (function () {
-    function DataService(http, cookieService) {
+    function DataService(http) {
         this.http = http;
-        this.cookieService = cookieService;
-        this.userUrl = "/api/user";
-        if (cookieService.check("UserId") && this.SignIn(cookieService.get("UserId"))) {
-            this.UserId = cookieService.get("UserId");
-        }
-        else {
-            var guid = this.SignUp();
-            cookieService.set("UserID", guid);
-            this.UserId = guid;
-        }
-        console.log(this.UserId);
+        this.userUrl = "api/user";
     }
     DataService.prototype.SignUp = function () {
-        return this.http.get(this.userUrl, { responseType: 'text' })[0];
+        return this.http.get(this.userUrl, { responseType: 'text' });
     };
     DataService.prototype.SignIn = function (guid) {
-        return this.http.get(this.userUrl + "/" + guid, { responseType: 'text' })[0] == "true";
+        return this.http.get(this.userUrl + "/" + guid, { responseType: 'text' });
     };
     DataService = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [HttpClient, CookieService])
+        __metadata("design:paramtypes", [HttpClient])
     ], DataService);
     return DataService;
 }());
