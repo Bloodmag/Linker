@@ -1,0 +1,56 @@
+﻿body {
+    margin:0;
+}
+
+.long_url{
+    width:25%;
+    position:absolute;
+    top:38%;
+    left:38%;
+}
+
+.back_gil{
+    z-index:-1;
+}
+.dickpick rect{
+    z-index:2;
+}
+
+.gil_razor{
+    
+}
+
+.dick_head{
+    
+}
+
+.gil_razor_animate {
+    animation: drop .45s ease-in forwards;
+}
+
+.dick_head_animate {
+    animation: flyaway 1s linear forwards;
+    animation-delay: .3s;
+}
+
+.dickWrapper{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+@keyframes flyaway{
+    from {}
+    to {
+        transform-origin: center;
+        transform: rotate(10deg) translateY(20%);
+    }
+}
+
+@keyframes drop {
+    from{}
+    to {
+        transform: translateY(25%)
+    }
+}

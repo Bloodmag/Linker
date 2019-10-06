@@ -14,6 +14,7 @@ var DataService = /** @class */ (function () {
     function DataService(http) {
         this.http = http;
         this.userUrl = "api/user";
+        this.linkUrl = "l";
     }
     DataService.prototype.SignUp = function () {
         return this.http.get(this.userUrl, { responseType: 'text' });

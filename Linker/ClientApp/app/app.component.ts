@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
+    //styleUrls: ['./app.component.css'],
     providers: [DataService]
 })
 export class AppComponent implements OnInit {
@@ -39,25 +40,19 @@ export class AppComponent implements OnInit {
     }
     Shorten() : void{
         console.log("ОБРЕЗАНО");
+        document.querySelectorAll(".dick_head").forEach(p => p.classList.add("dick_head_animate"));
+        document.querySelector(".gil_razor").classList.add("gil_razor_animate");
     }
 
-    SignUpSync(): string {
-        this.dataService.SignUp().subscribe(x => { this.guid = x; console.log(this.guid);})
-        return this.guid;
-    }
-
-    SignInSync(guid: string): boolean {
-        this.dataService.SignIn(guid).subscribe(x => { this.ret = JSON.parse(x); console.log(this.ret) });
-        return this.ret;
-    }
+    
 
     ngOnInit() {
         this.name = this.dataService.UserId;
         
     }
     
-    private guid: string;
-    private ret: boolean;
+   
     name = '';
+    private longUrl: string;
     private userId: string;
 }
