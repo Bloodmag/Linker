@@ -30,7 +30,7 @@ module.exports = {
                 loader: 'html-loader'
             }, {
                 test: /\.css$/,
-                include: path.resolve(__dirname, 'ClientApp/app'),
+                //include: path.resolve(__dirname, 'ClientApp/'),
                 loader: 'raw-loader'
             }
         ]
