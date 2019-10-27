@@ -10,8 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { DataService } from './data.service';
 import { CookieService } from 'ngx-cookie-service';
+import { PlatformLocation } from '@angular/common';
 var AppComponent = /** @class */ (function () {
-    function AppComponent(dataService, cookieService) {
+    function AppComponent(dataService, cookieService, platformLocation) {
         var _this = this;
         this.dataService = dataService;
         this.cookieService = cookieService;
@@ -38,9 +39,22 @@ var AppComponent = /** @class */ (function () {
                 console.log("Registered as " + _this.userId);
             });
         }
+        this.longUrl = platformLocation.href + "l/";
+        this.isCopyBtnVisible = false;
     }
     AppComponent.prototype.Shorten = function () {
+        var _this = this;
         console.log("ОБРЕЗАНО");
+        document.querySelectorAll(".dick_head").forEach(function (p) { return p.classList.add("dick_head_animate"); });
+        document.querySelector(".saber").classList.add("saber_anim");
+        this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(function (x) {
+            _this.shortUrl = JSON.parse(x);
+            console.log("POST:" + _this.shortUrl);
+        });
+        this.isCopyBtnVisible = true;
+    };
+    AppComponent.prototype.OnUrlUpdated = function () {
+        console.log(this.longUrl);
     };
     AppComponent.prototype.ngOnInit = function () {
         this.name = this.dataService.UserId;
@@ -52,7 +66,7 @@ var AppComponent = /** @class */ (function () {
             //styleUrls: ['./app.component.css'],
             providers: [DataService]
         }),
-        __metadata("design:paramtypes", [DataService, CookieService])
+        __metadata("design:paramtypes", [DataService, CookieService, PlatformLocation])
     ], AppComponent);
     return AppComponent;
 }());

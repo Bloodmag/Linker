@@ -21,5 +21,9 @@ export class DataService {
         return this.http.get(this.userUrl + "/" + guid, { responseType: 'text' });
     }
 
+    ShortenUrl(guid: string, longUrl: string) {
+        return this.http.post(this.linkUrl + "/shorten", { "guid":guid, "longUrl":longUrl }, { responseType:'text' })
+    }
+
     
 }

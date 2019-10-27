@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Linker.Models;
 using Microsoft.AspNetCore.Http;
@@ -17,13 +18,22 @@ namespace Linker.Controllers
             db = context;
         }
         [HttpPost("shorten")]
-        public string ShortenLink([FromBody] Guid guid, [FromBody] string url)
+        public IActionResult ShortenLink([FromBody] string url)
         {
-            User user = db.Users.Find(guid);
-            Link link = new Link();
-            //link.Created
-            //user.Links.Add()
-            return "SOSIhui";
+            string URL = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(Request);
+            Guid guid;
+            if (Guid.TryParse(this.HttpContext.Request.Cookies.FirstOrDefault().Value,out guid) && db.Users.Where(x => x.Guid == guid).Any())
+            {
+                User user = db.Users.Where(x => x.Guid == guid).First();
+                Link link = new Link();
+                //link.Created
+                //user.Links.Add()
+                return Ok(URL);
+            }
+            else
+            {
+                return BadRequest(guid);
+            }
         }
 
         [HttpGet("{shortLink}")]
@@ -42,7 +52,8 @@ namespace Linker.Controllers
                 return new ContentResult
                 {
                     ContentType = "text/html",
-                    Content = "<h1>Твоя ссылка нне существует/n " +
+                    Content = "<head><meta charset=\"utf-8\"></head>" +
+                    "<h1>Твоя ссылка не существует" + Environment.NewLine +
                     "*шепотом*лох</h1>"
                 };
             }
