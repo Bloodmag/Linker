@@ -23,12 +23,12 @@
             <div class="dick_head">
                 <div class="dick_head1">
                     <div class="centered_input">
-                        {{shortUrl}}
+                        <a href={{shortUrl}} target="_blank">{{shortUrl}}</a>
                     </div>
                 </div>
                 <div class="dick_head2">
                     <div class="centered_input">
-                        <button [style.visibility]="isCopyBtnVisible ? 'visible' : 'hidden'">Copy</button>
+                        <button [style.visibility]="isCopyBtnVisible ? 'visible' : 'hidden'" (click)="copyToClipBoard()">Copy</button>
                     </div>
                 </div>
             </div>

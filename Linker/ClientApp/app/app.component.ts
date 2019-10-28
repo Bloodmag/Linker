@@ -44,8 +44,8 @@ export class AppComponent implements OnInit {
         document.querySelectorAll(".dick_head").forEach(p => p.classList.add("dick_head_animate"));
         document.querySelector(".saber").classList.add("saber_anim");
         this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(x => {
-            this.shortUrl = JSON.parse(x);
-            console.log("POST:" + this.shortUrl);
+            this.shortUrl = JSON.parse(x)["value"];
+            
         });
         this.isCopyBtnVisible = true;
     }
@@ -58,7 +58,20 @@ export class AppComponent implements OnInit {
         this.name = this.dataService.UserId;
         
     }
-    
+
+    copyToClipBoard():void {
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = this.shortUrl;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    }
    
     name = '';
     private shortUrl: string;

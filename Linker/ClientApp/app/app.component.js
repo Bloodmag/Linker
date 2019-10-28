@@ -48,8 +48,7 @@ var AppComponent = /** @class */ (function () {
         document.querySelectorAll(".dick_head").forEach(function (p) { return p.classList.add("dick_head_animate"); });
         document.querySelector(".saber").classList.add("saber_anim");
         this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(function (x) {
-            _this.shortUrl = JSON.parse(x);
-            console.log("POST:" + _this.shortUrl);
+            _this.shortUrl = JSON.parse(x)["value"];
         });
         this.isCopyBtnVisible = true;
     };
@@ -58,6 +57,19 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         this.name = this.dataService.UserId;
+    };
+    AppComponent.prototype.copyToClipBoard = function () {
+        var selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = this.shortUrl;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
     };
     AppComponent = __decorate([
         Component({

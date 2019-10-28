@@ -23,7 +23,7 @@ var DataService = /** @class */ (function () {
         return this.http.get(this.userUrl + "/" + guid, { responseType: 'text' });
     };
     DataService.prototype.ShortenUrl = function (guid, longUrl) {
-        return this.http.post(this.linkUrl + "/shorten", { "guid": guid, "longUrl": longUrl }, { responseType: 'text' });
+        return this.http.post(this.linkUrl + "/shorten", JSON.stringify(longUrl), { headers: { 'Content-Type': 'application/json' }, responseType: 'text' });
     };
     DataService = __decorate([
         Injectable(),

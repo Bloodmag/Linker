@@ -33,6 +33,7 @@ namespace Linker
         {
             if (env.IsDevelopment())
             {
+                AppContext.SetSwitch("System.Net.Http.UseSocketsHttpHandler", false);
                 app.UseDeveloperExceptionPage();
 
                 // добавляем сборку через webpack

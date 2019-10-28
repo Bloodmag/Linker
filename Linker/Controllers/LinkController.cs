@@ -18,9 +18,10 @@ namespace Linker.Controllers
             db = context;
         }
         [HttpPost("shorten")]
-        public IActionResult ShortenLink([FromBody] string url)
+        public IActionResult ShortenLink([FromBody] string longUrl)
         {
             string URL = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(Request);
+            
             Guid guid;
             if (Guid.TryParse(this.HttpContext.Request.Cookies.FirstOrDefault().Value,out guid) && db.Users.Where(x => x.Guid == guid).Any())
             {
@@ -28,7 +29,7 @@ namespace Linker.Controllers
                 Link link = new Link();
                 //link.Created
                 //user.Links.Add()
-                return Ok(URL);
+                return Ok(Json("http://google.com"));
             }
             else
             {
@@ -37,14 +38,20 @@ namespace Linker.Controllers
         }
 
         [HttpGet("{shortLink}")]
-        public ContentResult Redirect(string shortLink)
+        public IActionResult RedirectLink(string shortLink)
         {
-            if (shortLink.Length == 7 && db.Links.Where(l => l.Shortlink == shortLink).Count() > 0)
+            return new RedirectResult("http://" + shortLink);
+            return new ContentResult
             {
-                return new ContentResult
-                {
+                ContentType = "text/html",
+                Content = "<head><meta http-equiv=\"Refresh\" content=\"0; url=http://" + shortLink + "\" /></head>"
+            };
+            if (shortLink.Length == 7 && db.Links.Where(l => l.Shortlink == shortLink).Any())
+            {
+                Response.Redirect(shortLink);
+                return new ContentResult{
                     ContentType = "text/html",
-                    Content = "<div>Hello World" + shortLink + "</div>"
+                    Content = "<!DOCTYPE html>< html >< head > < meta http - equiv = \"Refresh\" content = \"url="+ shortLink + "\" /></ head ></ html > "
                 };
             }
             else
@@ -53,7 +60,7 @@ namespace Linker.Controllers
                 {
                     ContentType = "text/html",
                     Content = "<head><meta charset=\"utf-8\"></head>" +
-                    "<h1>Твоя ссылка не существует" + Environment.NewLine +
+                    "<h1>Твоя ссылка не существует<br>" +
                     "*шепотом*лох</h1>"
                 };
             }
