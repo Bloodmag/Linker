@@ -1,56 +1,189 @@
-﻿body {
-    margin:0;
+﻿.head1 {
+    color: navy;
 }
 
-.long_url{
-    width:25%;
-    position:absolute;
-    top:38%;
-    left:38%;
+.ball {
+    border-bottom-left-radius: 100% 200%;
+    border-bottom-right-radius: 100% 200%;
+    background-color: bisque;
+    grid-column-start: 2;
+    grid-column-end: 6;
+    grid-row-start: 7;
+    grid-row-end: 9;
 }
 
-.back_gil{
-    z-index:-1;
-}
-.dickpick rect{
-    z-index:2;
-}
-
-.gil_razor{
-    
+.dick_body {
+    align-content: center;
+    background-color: bisque;
+    grid-column-start: 2;
+    grid-column-end: 11;
+    grid-row-start: 5;
+    grid-row-end: 7;
 }
 
-.dick_head{
-    
-}
-
-.gil_razor_animate {
-    animation: drop .45s ease-in forwards;
+.dick_head {
+    grid-column-start: 11;
+    grid-column-end: 14;
+    grid-row-start: 5;
+    grid-row-end: 7;
 }
 
 .dick_head_animate {
-    animation: flyaway 1s linear forwards;
-    animation-delay: .3s;
+    animation: fall .45s ease-in forwards;
 }
 
-.dickWrapper{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.dick_head1 {
+    background-color: bisque;
+    width: 70%;
+    height: 100%;
+    float: left;
 }
 
-@keyframes flyaway{
-    from {}
+.dick_head2 {
+    text-align: center;
+    align-content: center;
+    width: 30%;
+    height: 100%;
+    background-color: maroon;
+    float: left;
+    border-top-right-radius: 200% 100%;
+    border-bottom-right-radius: 200% 70%;
+}
+
+
+.centered_input {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.URL_field {
+    width: 90%;
+    font-size: 24px;
+}
+
+
+.composition {
+    grid-area: dick;
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: repeat(16,1fr);
+    grid-template-rows: repeat(9,1fr);
+    height: 100%;
+    width: 100%;
+}
+
+.header {
+    grid-area: head;
+    background-color: blueviolet;
+    color: rgb(252, 183, 55);
+    font-size: 28px;
+}
+
+.footer {
+    grid-area: foot;
+    text-align: center;
+    font-size: 12px;
+}
+
+.page {
+    margin: 0px;
+    display: grid;
+    grid-gap: 0;
+    grid-template-areas: "head head head" "noth dick noth2" "foot foot foot";
+    grid-template-rows: 33px 1fr 33px;
+    grid-template-columns: 60px 1fr 60px;
+    height: 100vh;
+    width: 100%;
+}
+
+
+
+@keyframes cut {
+
     to {
-        transform-origin: center;
-        transform: rotate(10deg) translateY(20%);
+        transform: rotate3d(0,0,1,190deg);
     }
 }
 
-@keyframes drop {
-    from{}
+@keyframes fall {
+    /*from {
+      margin-left: 0px;
+    }*/
+    50% {
+        transform: translate3d(7%, 100%, 0);
+    }
+
+    60% {
+        transform: translate3d(8%, 80%, 0);
+    }
+
+    75% {
+        transform: translate3d(9%, 100%, 0);
+    }
+
+    82% {
+        transform: translate3d(9.5%, 90%, 0);
+    }
+
+    100% {
+        transform: translate3d(10%, 100%, 0);
+    }
+}
+
+
+.saber {
+    grid-column-start: 10;
+    grid-column-end: 16;
+    grid-row: 3;
+    transform-origin: left;
+    transform: rotate3d(0,0,1,-10deg);
+    justify-content: baseline;
+    
+}
+
+.saber_anim {
+    animation: cut 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
+
+.handle {
+    width: 20%;
+    float: left;
+    height: 2vh;
+    background-color: darkgray;
+    border-top-left-radius: 25%;
+    border-bottom-left-radius: 25%;
+}
+
+.saber_razor {
+    width: 80%;
+    float: left;
+    height: 2vh;
+    background-color: white;
+    border-bottom-right-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0px 0px 10px, 0px 0px 2px inset;
+    animation: glow 1.5s linear infinite;
+}
+
+
+
+@keyframes glow {
+    from {
+        color: purple;
+        box-shadow: 0 0 9px purple;
+    }
+
+    50% {
+        color: purple;
+        box-shadow: 0 0 18px purple;
+    }
+
     to {
-        transform: translateY(25%)
+        color: purple;
+        box-shadow: 0 0 9px purple;
     }
 }

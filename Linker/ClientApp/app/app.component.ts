@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 import { CookieService } from 'ngx-cookie-service';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
     selector: 'app',
@@ -11,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class AppComponent implements OnInit {
 
 
-    constructor(private dataService: DataService, private cookieService: CookieService) {
+    constructor(private dataService: DataService, private cookieService: CookieService, platformLocation: PlatformLocation) {
         if (cookieService.check("UserId")) {
             dataService.SignIn((cookieService.get("UserId"))).subscribe(x => {
                 if (x == "true") {
@@ -34,16 +35,23 @@ export class AppComponent implements OnInit {
             })
         }
 
-
-
+        this.longUrl = platformLocation.href + "l/";
+        this.isCopyBtnVisible = false;
         
     }
     Shorten() : void{
         console.log("ОБРЕЗАНО");
         document.querySelectorAll(".dick_head").forEach(p => p.classList.add("dick_head_animate"));
-        document.querySelector(".gil_razor").classList.add("gil_razor_animate");
+        document.querySelector(".saber").classList.add("saber_anim");
+        this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(x => {
+            this.shortUrl = JSON.parse(x);
+            console.log("POST:" + this.shortUrl);
+        });
+        this.isCopyBtnVisible = true;
     }
-
+    OnUrlUpdated(): void {
+        console.log(this.longUrl);
+    }
     
 
     ngOnInit() {
@@ -53,6 +61,8 @@ export class AppComponent implements OnInit {
     
    
     name = '';
+    private shortUrl: string;
     private longUrl: string;
     private userId: string;
+    private isCopyBtnVisible: boolean;
 }
