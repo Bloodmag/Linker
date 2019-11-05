@@ -35,22 +35,27 @@ export class AppComponent implements OnInit {
             })
         }
 
-        this.longUrl = platformLocation.href + "l/";
+        this.pageUrl = platformLocation.href + "l/";
         this.isCopyBtnVisible = false;
-        
+        this.isLongUrlValid = false;
+        this.regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\) \*\+,;=.]+$/;
+        this.hasShortened = false;
     }
     Shorten() : void{
         console.log("ОБРЕЗАНО");
         document.querySelectorAll(".dick_head").forEach(p => p.classList.add("dick_head_animate"));
         document.querySelector(".saber").classList.add("saber_anim");
         this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(x => {
-            this.shortUrl = JSON.parse(x)["value"];
+            this.shortUrl = this.pageUrl + JSON.parse(x)["value"];
             
         });
         this.isCopyBtnVisible = true;
+        this.hasShortened = true;
+        this.Shorten = () => {  };
     }
     OnUrlUpdated(): void {
-        console.log(this.longUrl);
+
+        this.isLongUrlValid = this.regex.test(this.longUrl);
     }
     
 
@@ -74,8 +79,12 @@ export class AppComponent implements OnInit {
     }
    
     name = '';
+    private regex: RegExp;
     private shortUrl: string;
     private longUrl: string;
     private userId: string;
+    private isLongUrlValid: boolean;
     private isCopyBtnVisible: boolean;
+    private hasShortened: boolean;
+    private pageUrl: string;
 }

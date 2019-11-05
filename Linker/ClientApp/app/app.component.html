@@ -10,14 +10,17 @@
 
 <body style="margin: 0;">
     <div class="page">
-        <div class="header">Обрезатель URL'ов 9000</div>
+        <div class="header">
+            <div style="float:left">Обрезатель URL'ов 9000</div>
+            <div style="float:right;"><button style="color:initial;font-size:initial; vertical-align:middle; margin: 0 auto">hui</button></div>
+        </div>
         <div class="composition">
             <div class="ball">
 
             </div>
             <div class="dick_body">
                 <div class="centered_input">
-                    <input type="text" [(ngModel)]="longUrl" (input)="OnUrlUpdated()" class="URL_field" placeholder="URL"/>
+                    <input type="text" [readonly]="hasShortened" [(ngModel)]="longUrl" (input)="OnUrlUpdated()" class="URL_field" placeholder="URL"/>
                 </div>
             </div>
             <div class="dick_head">
@@ -33,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="saber" (click)="Shorten()">
+            <div class="saber" (click)="Shorten()" [style.visibility]="isLongUrlValid ? 'visible' : 'hidden'">
                 <div class="handle" [style.cursor]="isCopyBtnVisible ? 'auto' : 'pointer'"></div>
                 <div class="saber_razor" [style.cursor]="isCopyBtnVisible ? 'auto' : 'pointer'"></div>
             </div>

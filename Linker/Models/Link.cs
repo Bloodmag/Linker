@@ -13,7 +13,7 @@ namespace Linker.Models
         
         public DateTime Created { get; set; }
         [Key]
-        public string Shortlink { get; set; }
+        public long Id { get; set; }
         [Required]
         public string OriginalLink { get; set; }
         public long Redirections { get; set; }

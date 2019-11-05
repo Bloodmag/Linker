@@ -39,8 +39,10 @@ var AppComponent = /** @class */ (function () {
                 console.log("Registered as " + _this.userId);
             });
         }
-        this.longUrl = platformLocation.href + "l/";
+        //this.longUrl = platformLocation.href + "l/";
         this.isCopyBtnVisible = false;
+        this.isLongUrlValid = false;
+        this.regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\) \*\+,;=.]+$/;
     }
     AppComponent.prototype.Shorten = function () {
         var _this = this;
@@ -51,9 +53,10 @@ var AppComponent = /** @class */ (function () {
             _this.shortUrl = JSON.parse(x)["value"];
         });
         this.isCopyBtnVisible = true;
+        this.Shorten = function () { console.log("NAHUI"); };
     };
     AppComponent.prototype.OnUrlUpdated = function () {
-        console.log(this.longUrl);
+        this.isLongUrlValid = this.regex.test(this.longUrl);
     };
     AppComponent.prototype.ngOnInit = function () {
         this.name = this.dataService.UserId;
