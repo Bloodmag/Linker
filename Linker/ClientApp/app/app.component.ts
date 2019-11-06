@@ -40,6 +40,8 @@ export class AppComponent implements OnInit {
         this.isLongUrlValid = false;
         this.regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\) \*\+,;=.]+$/;
         this.hasShortened = false;
+        this.switchText = 'История';
+        this.tableView = false;
     }
     Shorten() : void{
         console.log("ОБРЕЗАНО");
@@ -57,7 +59,14 @@ export class AppComponent implements OnInit {
 
         this.isLongUrlValid = this.regex.test(this.longUrl);
     }
-    
+
+    switchView(): void {
+        if (this.tableView)
+            this.switchText = 'История';
+        else
+            this.switchText = 'Обрезатель';
+        this.tableView = !this.tableView;
+    }
 
     ngOnInit() {
         this.name = this.dataService.UserId;
@@ -87,4 +96,6 @@ export class AppComponent implements OnInit {
     private isCopyBtnVisible: boolean;
     private hasShortened: boolean;
     private pageUrl: string;
+    private switchText: string;
+    private tableView: boolean;
 }

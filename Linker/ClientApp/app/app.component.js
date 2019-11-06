@@ -39,10 +39,11 @@ var AppComponent = /** @class */ (function () {
                 console.log("Registered as " + _this.userId);
             });
         }
-        //this.longUrl = platformLocation.href + "l/";
+        this.pageUrl = platformLocation.href + "l/";
         this.isCopyBtnVisible = false;
         this.isLongUrlValid = false;
         this.regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\) \*\+,;=.]+$/;
+        this.hasShortened = false;
     }
     AppComponent.prototype.Shorten = function () {
         var _this = this;
@@ -50,10 +51,11 @@ var AppComponent = /** @class */ (function () {
         document.querySelectorAll(".dick_head").forEach(function (p) { return p.classList.add("dick_head_animate"); });
         document.querySelector(".saber").classList.add("saber_anim");
         this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(function (x) {
-            _this.shortUrl = JSON.parse(x)["value"];
+            _this.shortUrl = _this.pageUrl + JSON.parse(x)["value"];
         });
         this.isCopyBtnVisible = true;
-        this.Shorten = function () { console.log("NAHUI"); };
+        this.hasShortened = true;
+        this.Shorten = function () { };
     };
     AppComponent.prototype.OnUrlUpdated = function () {
         this.isLongUrlValid = this.regex.test(this.longUrl);
