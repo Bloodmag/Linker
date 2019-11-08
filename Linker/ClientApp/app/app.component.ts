@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
         this.pageUrl = platformLocation.href + "l/";
         this.isCopyBtnVisible = false;
         this.isLongUrlValid = false;
-        this.regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\) \*\+,;=.]+$/;
+        this.regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&%'\(\) \*\+,;=.]+$/;
         this.hasShortened = false;
         this.switchText = 'История';
         this.tableView = false;

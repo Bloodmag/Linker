@@ -42,8 +42,10 @@ var AppComponent = /** @class */ (function () {
         this.pageUrl = platformLocation.href + "l/";
         this.isCopyBtnVisible = false;
         this.isLongUrlValid = false;
-        this.regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\) \*\+,;=.]+$/;
+        this.regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&%'\(\) \*\+,;=.]+$/;
         this.hasShortened = false;
+        this.switchText = 'История';
+        this.tableView = false;
     }
     AppComponent.prototype.Shorten = function () {
         var _this = this;
@@ -59,6 +61,13 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.OnUrlUpdated = function () {
         this.isLongUrlValid = this.regex.test(this.longUrl);
+    };
+    AppComponent.prototype.switchView = function () {
+        if (this.tableView)
+            this.switchText = 'История';
+        else
+            this.switchText = 'Обрезатель';
+        this.tableView = !this.tableView;
     };
     AppComponent.prototype.ngOnInit = function () {
         this.name = this.dataService.UserId;

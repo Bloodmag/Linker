@@ -28,6 +28,11 @@ namespace Linker.Controllers
         {
             return db.Users.Where(u => u.Guid == guid).Count() > 0;
         }
+        [HttpGet("{guid}/links")]
+        public bool GetLinks(Guid guid)
+        {
+            return db.Users.Where(u => u.Guid == guid).Count() > 0;
+        }
 
     }
 }
