@@ -14,6 +14,8 @@
     <None Remove="ClientApp\app\app.component.ts" />
     <None Remove="ClientApp\app\app.module.ts" />
     <None Remove="ClientApp\app\data.service.ts" />
+    <None Remove="ClientApp\app\dick.svg" />
+    <None Remove="ClientApp\app\link.ts" />
     <None Remove="ClientApp\main.ts" />
     <None Remove="ClientApp\polyfills.ts" />
   </ItemGroup>

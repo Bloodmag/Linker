@@ -49,24 +49,38 @@ var AppComponent = /** @class */ (function () {
     }
     AppComponent.prototype.Shorten = function () {
         var _this = this;
-        console.log("ОБРЕЗАНО");
-        document.querySelectorAll(".dick_head").forEach(function (p) { return p.classList.add("dick_head_animate"); });
-        document.querySelector(".saber").classList.add("saber_anim");
-        this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(function (x) {
-            _this.shortUrl = _this.pageUrl + JSON.parse(x)["value"];
-        });
-        this.isCopyBtnVisible = true;
-        this.hasShortened = true;
-        this.Shorten = function () { };
+        if (!this.hasShortened) {
+            console.log("ОБРЕЗАНО");
+            document.querySelectorAll(".dick_head").forEach(function (p) { return p.classList.add("dick_head_animate"); });
+            document.querySelector(".saber").classList.add("saber_anim");
+            this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(function (x) {
+                _this.shortUrl = _this.pageUrl + JSON.parse(x)["value"];
+            });
+            this.isCopyBtnVisible = true;
+            this.hasShortened = true;
+        }
     };
     AppComponent.prototype.OnUrlUpdated = function () {
         this.isLongUrlValid = this.regex.test(this.longUrl);
     };
     AppComponent.prototype.switchView = function () {
-        if (this.tableView)
+        var _this = this;
+        if (this.tableView) {
             this.switchText = 'История';
-        else
+            this.hasShortened = false;
+            this.isCopyBtnVisible = false;
+            this.isLongUrlValid = false;
+            this.longUrl = "";
+            this.shortUrl = "";
+        }
+        else {
             this.switchText = 'Обрезатель';
+            this.dataService.GetLinks(this.userId)
+                .subscribe(function (data) {
+                _this.links = data;
+                _this.links.forEach(function (l) { return l.shortUrl = _this.pageUrl + l.shortUrl; });
+            });
+        }
         this.tableView = !this.tableView;
     };
     AppComponent.prototype.ngOnInit = function () {

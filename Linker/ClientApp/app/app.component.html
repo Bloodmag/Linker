@@ -12,36 +12,30 @@
     <div class="page">
         <div class="header">
             <div style="float:left">Обрезатель URL'ов 9000</div>
-            <div style="float:right; margin:0 auto;"><button style="color:initial;font-size:initial; vertical-align:top;  margin: 3px 3px 0 0;" (click)="switchView()">{{switchText}}</button></div>
+            <div style="float:right; margin:0 auto;"><button style="color:initial;font-size:14px; vertical-align:top;  margin: 3px 3px 0 0;" (click)="switchView()">{{switchText}}</button></div>
         </div>
-        <div class="composition">
-            <div class="ball">
+        <table border="1"  *ngIf="tableView; else cutter" class="linkTable">
+            <thead>
+                <tr width="100%">
+                    <th width="20%">Сокращённая ссылка</th>
+                    <th width="55%">Оригинальный url</th>
+                    <th width="15%">Дата создания</th>
+                    <th width="10%">Переходов</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let l of links">
+                        <td><a href="{{l?.shortUrl}}">{{l?.shortUrl}}</a></td>
+                        <td>{{l?.longUrl}}</td>
+                        <td>{{l?.created}}</td>
+                        <td>
+                            {{l?.redirections}}
+                        </td>
+                </tr>
+            </tbody>
+        </table>
 
-            </div>
-            <div class="dick_body">
-                <div class="centered_input">
-                    <input type="text" [readonly]="hasShortened" [(ngModel)]="longUrl" (input)="OnUrlUpdated()" class="URL_field" placeholder="URL"/>
-                </div>
-            </div>
-            <div class="dick_head">
-                <div class="dick_head1">
-                    <div class="centered_input">
-                        <a href={{shortUrl}} target="_blank">{{shortUrl}}</a>
-                    </div>
-                </div>
-                <div class="dick_head2">
-                    <div class="centered_input">
-                        <button [style.visibility]="isCopyBtnVisible ? 'visible' : 'hidden'" (click)="copyToClipBoard()">Copy</button>
-                    </div>
-                </div>
-            </div>
 
-            <div class="saber" (click)="Shorten()" [style.visibility]="isLongUrlValid ? 'visible' : 'hidden'">
-                <div class="handle" [style.cursor]="isCopyBtnVisible ? 'auto' : 'pointer'"></div>
-                <div class="saber_razor" [style.cursor]="isCopyBtnVisible ? 'auto' : 'pointer'"></div>
-            </div>
-
-        </div>
         <div class="footer">
             By bloodmag 2019 (c)
         </div>
@@ -50,6 +44,35 @@
 
 </body>
 
+<ng-template #cutter>
+    <div class="composition">
+        <div class="ball">
 
+        </div>
+        <div class="dick_body">
+            <div class="centered_input">
+                <input type="text" [readonly]="hasShortened" [(ngModel)]="longUrl" (input)="OnUrlUpdated()" class="URL_field" placeholder="URL" />
+            </div>
+        </div>
+        <div class="dick_head">
+            <div class="dick_head1">
+                <div class="centered_input">
+                    <a href={{shortUrl}} target="_blank">{{shortUrl}}</a>
+                </div>
+            </div>
+            <div class="dick_head2">
+                <div class="centered_input">
+                    <button [style.visibility]="isCopyBtnVisible ? 'visible' : 'hidden'" (click)="copyToClipBoard()">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="saber" (click)="Shorten()" [style.visibility]="isLongUrlValid ? 'visible' : 'hidden'">
+            <div class="handle" [style.cursor]="isCopyBtnVisible ? 'auto' : 'pointer'"></div>
+            <div class="saber_razor" [style.cursor]="isCopyBtnVisible ? 'auto' : 'pointer'"></div>
+        </div>
+
+    </div>
+</ng-template>
 
 </html>

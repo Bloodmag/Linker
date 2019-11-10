@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { Product } from './product';
 var DataService = /** @class */ (function () {
     function DataService(http) {
         this.http = http;
@@ -24,6 +23,9 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.ShortenUrl = function (guid, longUrl) {
         return this.http.post(this.linkUrl + "/shorten", JSON.stringify(longUrl), { headers: { 'Content-Type': 'application/json' }, responseType: 'text' });
+    };
+    DataService.prototype.GetLinks = function (guid) {
+        return this.http.get(this.userUrl + '/' + guid + '/links');
     };
     DataService = __decorate([
         Injectable(),

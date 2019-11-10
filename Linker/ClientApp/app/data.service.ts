@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { Product } from './product';
+import { Link } from './link';
 
 @Injectable()
 export class DataService {
@@ -25,5 +25,8 @@ export class DataService {
         return this.http.post(this.linkUrl + "/shorten", JSON.stringify(longUrl), { headers: { 'Content-Type': 'application/json' }, responseType: 'text' });
     }
 
+    GetLinks(guid: string) {
+        return this.http.get(this.userUrl + '/' + guid + '/links');
+    }
     
 }

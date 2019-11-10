@@ -2,6 +2,7 @@
 import { DataService } from './data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PlatformLocation } from '@angular/common';
+import { Link } from './link';
 
 @Component({
     selector: 'app',
@@ -43,17 +44,18 @@ export class AppComponent implements OnInit {
         this.switchText = 'История';
         this.tableView = false;
     }
-    Shorten() : void{
-        console.log("ОБРЕЗАНО");
-        document.querySelectorAll(".dick_head").forEach(p => p.classList.add("dick_head_animate"));
-        document.querySelector(".saber").classList.add("saber_anim");
-        this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(x => {
-            this.shortUrl = this.pageUrl + JSON.parse(x)["value"];
-            
-        });
-        this.isCopyBtnVisible = true;
-        this.hasShortened = true;
-        this.Shorten = () => {  };
+    Shorten(): void{
+        if (!this.hasShortened) {
+            console.log("ОБРЕЗАНО");
+            document.querySelectorAll(".dick_head").forEach(p => p.classList.add("dick_head_animate"));
+            document.querySelector(".saber").classList.add("saber_anim");
+            this.dataService.ShortenUrl(this.userId, this.longUrl).subscribe(x => {
+                this.shortUrl = this.pageUrl + JSON.parse(x)["value"];
+
+            });
+            this.isCopyBtnVisible = true;
+            this.hasShortened = true;
+        }
     }
     OnUrlUpdated(): void {
 
@@ -61,10 +63,22 @@ export class AppComponent implements OnInit {
     }
 
     switchView(): void {
-        if (this.tableView)
+        if (this.tableView) {
             this.switchText = 'История';
-        else
+            this.hasShortened = false;
+            this.isCopyBtnVisible = false;
+            this.isLongUrlValid = false;
+            this.longUrl = "";
+            this.shortUrl = "";
+        }
+        else {
             this.switchText = 'Обрезатель';
+            this.dataService.GetLinks(this.userId)
+                .subscribe((data: Link[]) => {
+                    this.links = data;
+                    this.links.forEach(l => l.shortUrl = this.pageUrl + l.shortUrl)});
+            
+        }
         this.tableView = !this.tableView;
     }
 
@@ -88,6 +102,7 @@ export class AppComponent implements OnInit {
     }
    
     name = '';
+    private links: Link[];
     private regex: RegExp;
     private shortUrl: string;
     private longUrl: string;

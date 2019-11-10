@@ -159,6 +159,11 @@
     border-bottom-left-radius: 25%;
 }
 
+.linkTable {
+    width: 100%;
+    grid-area: dick;
+}
+
 .saber_razor {
     width: 80%;
     float: left;
